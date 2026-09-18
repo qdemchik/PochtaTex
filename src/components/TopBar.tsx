@@ -69,15 +69,15 @@ export default function TopBar() {
   ];
 
   return (
-    <header className="h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-4 shrink-0">
+    <header className="h-14 bg-[#737676] border-b border-slate-700 flex items-center px-4 gap-4 shrink-0">
       {/* Logo */}
       <div className="flex items-center gap-2.5 mr-4">
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
           <Layers size={16} className="text-white" />
         </div>
         <div>
-          <h1 className="text-sm font-bold text-slate-800 leading-tight">Почта Тех</h1>
-          <p className="text-[10px] text-slate-400 leading-tight">Планировщик отделений</p>
+          <h1 className="text-sm font-bold text-white leading-tight">Почта Тех</h1>
+          <p className="text-[10px] text-slate-300 leading-tight">Планировщик отделений</p>
         </div>
       </div>
 
@@ -91,8 +91,8 @@ export default function TopBar() {
               onClick={() => dispatch({ type: 'SET_TAB', payload: tab.id })}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 activeTab === tab.id
-                  ? 'bg-blue-50 text-blue-700 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+                  ? 'bg-white/20 text-white shadow-sm'
+                  : 'text-slate-200 hover:text-white hover:bg-white/10'
               }`}
             >
               <Icon size={14} />
@@ -106,30 +106,15 @@ export default function TopBar() {
       <div className="flex-1" />
 
       {/* Plan name */}
-      <div className="text-xs text-slate-500 max-w-48 truncate">
-        <span className="font-medium text-slate-700">{currentPlan.name}</span>
+      <div className="text-xs text-slate-200 max-w-48 truncate">
+        <span className="font-medium text-white">{currentPlan.name}</span>
       </div>
 
       {/* Actions */}
       <div className="flex items-center gap-1.5">
         <button
-          onClick={handleValidate}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition-colors"
-        >
-          <CheckCircle2 size={14} />
-          Проверить
-        </button>
-        <button
-          onClick={handleAI}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-purple-700 bg-purple-50 hover:bg-purple-100 transition-colors"
-        >
-          <Sparkles size={14} />
-          ИИ
-        </button>
-        <div className="w-px h-6 bg-slate-200 mx-1" />
-        <button
           onClick={handleSave}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-white hover:bg-white/10 transition-colors"
           title="Сохранить план"
         >
           <Save size={14} />
@@ -137,7 +122,7 @@ export default function TopBar() {
         </button>
         <button
           onClick={handleLoad}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-white hover:bg-white/10 transition-colors"
           title="Загрузить план"
         >
           <Upload size={14} />

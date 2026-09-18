@@ -70,38 +70,38 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="w-72 bg-white border-l border-slate-200 flex flex-col h-full overflow-hidden">
+    <div className="w-72 bg-[#1a1a1a] border-l border-slate-800 flex flex-col h-full overflow-hidden">
       {/* Tabs */}
-      <div className="flex border-b border-slate-200">
+      <div className="flex border-b border-slate-800">
         <button
           onClick={() => setSidebarTab('library')}
           className={`flex-1 px-3 py-2.5 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors ${
             sidebarTab === 'library'
-              ? 'text-blue-700 border-b-2 border-blue-600 bg-blue-50/50'
-              : 'text-slate-500 hover:text-slate-700'
+              ? 'text-white border-b-2 border-blue-500 bg-slate-800/50'
+              : 'text-slate-400 hover:text-white'
           }`}
         >
-          <Box size={14} /> Библиотека
+          Библиотека
         </button>
         <button
           onClick={() => setSidebarTab('zones')}
           className={`flex-1 px-3 py-2.5 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors ${
             sidebarTab === 'zones'
-              ? 'text-blue-700 border-b-2 border-blue-600 bg-blue-50/50'
-              : 'text-slate-500 hover:text-slate-700'
+              ? 'text-white border-b-2 border-blue-500 bg-slate-800/50'
+              : 'text-slate-400 hover:text-white'
           }`}
         >
-          <Layers size={14} /> Зоны
+          Зоны
         </button>
         <button
           onClick={() => setSidebarTab('properties')}
           className={`flex-1 px-3 py-2.5 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors ${
             sidebarTab === 'properties'
-              ? 'text-blue-700 border-b-2 border-blue-600 bg-blue-50/50'
-              : 'text-slate-500 hover:text-slate-700'
+              ? 'text-white border-b-2 border-blue-500 bg-slate-800/50'
+              : 'text-slate-400 hover:text-white'
           }`}
         >
-          ⚙️ Свойства
+          Свойства
         </button>
       </div>
 
@@ -109,16 +109,16 @@ export default function Sidebar() {
       <div className="flex-1 overflow-y-auto">
         {sidebarTab === 'library' && (
           <div className="p-3">
-            <p className="text-xs text-slate-500 mb-2">Нажмите для добавления на план:</p>
+            <p className="text-xs text-slate-400 mb-2">Нажмите для добавления на план:</p>
             <div className="grid grid-cols-2 gap-2">
               {(Object.keys(OBJECT_TYPE_LABELS) as ObjectType[]).map((type) => (
                 <button
                   key={type}
                   onClick={() => addObject(type)}
-                  className="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-slate-200 hover:border-blue-300 hover:bg-blue-50 transition-all text-center group"
+                  className="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-slate-700 hover:border-blue-500 hover:bg-slate-800 transition-all text-center group"
                 >
                   <span className="text-xl">{OBJECT_TYPE_ICONS[type]}</span>
-                  <span className="text-[10px] text-slate-600 group-hover:text-blue-700 leading-tight">
+                  <span className="text-[10px] text-slate-300 group-hover:text-white leading-tight">
                     {OBJECT_TYPE_LABELS[type]}
                   </span>
                 </button>
@@ -129,26 +129,26 @@ export default function Sidebar() {
 
         {sidebarTab === 'zones' && (
           <div className="p-3">
-            <p className="text-xs text-slate-500 mb-2">Добавить зону:</p>
+            <p className="text-xs text-slate-400 mb-2">Добавить зону:</p>
             <div className="grid grid-cols-2 gap-2 mb-4">
               {(Object.keys(ZONE_TYPE_LABELS) as ZoneType[]).map((type) => (
                 <button
                   key={type}
                   onClick={() => addZone(type)}
-                  className="flex items-center gap-2 p-2 rounded-lg border border-slate-200 hover:border-blue-300 hover:bg-blue-50 transition-all"
+                  className="flex items-center gap-2 p-2 rounded-lg border border-slate-700 hover:border-blue-500 hover:bg-slate-800 transition-all"
                 >
                   <div
                     className="w-4 h-4 rounded"
                     style={{ backgroundColor: ZONE_TYPE_COLORS[type] }}
                   />
-                  <span className="text-[10px] text-slate-600 leading-tight">
+                  <span className="text-[10px] text-slate-300 leading-tight">
                     {ZONE_TYPE_LABELS[type]}
                   </span>
                 </button>
               ))}
             </div>
 
-            <p className="text-xs text-slate-500 mb-2 mt-4">Текущие зоны:</p>
+            <p className="text-xs text-slate-400 mb-2 mt-4">Текущие зоны:</p>
             <div className="space-y-1.5">
               {currentPlan.zones.map((zone) => (
                 <div
@@ -156,12 +156,12 @@ export default function Sidebar() {
                   onClick={() => dispatch({ type: 'SELECT_ZONE', payload: zone.id })}
                   className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-all ${
                     selectedZoneId === zone.id
-                      ? 'border-blue-400 bg-blue-50'
-                      : 'border-slate-200 hover:border-slate-300'
+                      ? 'border-blue-500 bg-slate-800'
+                      : 'border-slate-700 hover:border-slate-600'
                   }`}
                 >
                   <div className="w-3 h-3 rounded" style={{ backgroundColor: zone.color }} />
-                  <span className="text-xs text-slate-700 flex-1 truncate">{zone.name}</span>
+                  <span className="text-xs text-slate-200 flex-1 truncate">{zone.name}</span>
                 </div>
               ))}
             </div>
@@ -173,18 +173,18 @@ export default function Sidebar() {
             {selectedObject && (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-slate-800">Объект</h3>
+                  <h3 className="text-sm font-semibold text-white">Объект</h3>
                   <div className="flex gap-1">
                     <button
                       onClick={rotateSelected}
-                      className="p-1.5 rounded hover:bg-slate-100 text-slate-500"
+                      className="p-1.5 rounded hover:bg-slate-700 text-slate-400"
                       title="Повернуть"
                     >
                       <RotateCw size={14} />
                     </button>
                     <button
                       onClick={deleteSelected}
-                      className="p-1.5 rounded hover:bg-red-50 text-red-500"
+                      className="p-1.5 rounded hover:bg-red-900/30 text-red-400"
                       title="Удалить"
                     >
                       <Trash2 size={14} />
@@ -194,7 +194,7 @@ export default function Sidebar() {
 
                 <div className="space-y-2">
                   <div>
-                    <label className="text-[10px] text-slate-500 uppercase tracking-wide">Название</label>
+                    <label className="text-[10px] text-slate-400 uppercase tracking-wide">Название</label>
                     <input
                       type="text"
                       value={selectedObject.name}
@@ -204,13 +204,13 @@ export default function Sidebar() {
                           payload: { ...selectedObject, name: e.target.value },
                         })
                       }
-                      className="w-full mt-0.5 px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full mt-0.5 px-2 py-1.5 text-xs bg-slate-800 border border-slate-700 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="text-[10px] text-slate-500 uppercase tracking-wide">X (м)</label>
+                      <label className="text-[10px] text-slate-400 uppercase tracking-wide">X (м)</label>
                       <input
                         type="number"
                         step="0.1"
@@ -221,11 +221,11 @@ export default function Sidebar() {
                             payload: { ...selectedObject, x: parseFloat(e.target.value) || 0 },
                           })
                         }
-                        className="w-full mt-0.5 px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-full mt-0.5 px-2 py-1.5 text-xs bg-slate-800 border border-slate-700 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-slate-500 uppercase tracking-wide">Y (м)</label>
+                      <label className="text-[10px] text-slate-400 uppercase tracking-wide">Y (м)</label>
                       <input
                         type="number"
                         step="0.1"
@@ -236,11 +236,11 @@ export default function Sidebar() {
                             payload: { ...selectedObject, y: parseFloat(e.target.value) || 0 },
                           })
                         }
-                        className="w-full mt-0.5 px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-full mt-0.5 px-2 py-1.5 text-xs bg-slate-800 border border-slate-700 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-slate-500 uppercase tracking-wide">Ширина (м)</label>
+                      <label className="text-[10px] text-slate-400 uppercase tracking-wide">Ширина (м)</label>
                       <input
                         type="number"
                         step="0.1"
@@ -251,11 +251,11 @@ export default function Sidebar() {
                             payload: { ...selectedObject, width: parseFloat(e.target.value) || 0.1 },
                           })
                         }
-                        className="w-full mt-0.5 px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-full mt-0.5 px-2 py-1.5 text-xs bg-slate-800 border border-slate-700 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-slate-500 uppercase tracking-wide">Высота (м)</label>
+                      <label className="text-[10px] text-slate-400 uppercase tracking-wide">Высота (м)</label>
                       <input
                         type="number"
                         step="0.1"
@@ -266,13 +266,13 @@ export default function Sidebar() {
                             payload: { ...selectedObject, height: parseFloat(e.target.value) || 0.1 },
                           })
                         }
-                        className="w-full mt-0.5 px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-full mt-0.5 px-2 py-1.5 text-xs bg-slate-800 border border-slate-700 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-[10px] text-slate-500 uppercase tracking-wide">Поворот (°)</label>
+                    <label className="text-[10px] text-slate-400 uppercase tracking-wide">Поворот (°)</label>
                     <input
                       type="number"
                       step="15"
@@ -283,12 +283,12 @@ export default function Sidebar() {
                           payload: { ...selectedObject, rotation: parseInt(e.target.value) || 0 },
                         })
                       }
-                      className="w-full mt-0.5 px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full mt-0.5 px-2 py-1.5 text-xs bg-slate-800 border border-slate-700 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[10px] text-slate-500 uppercase tracking-wide">Зона</label>
+                    <label className="text-[10px] text-slate-400 uppercase tracking-wide">Зона</label>
                     <select
                       value={selectedObject.zoneId || ''}
                       onChange={(e) =>
@@ -297,7 +297,7 @@ export default function Sidebar() {
                           payload: { ...selectedObject, zoneId: e.target.value || null },
                         })
                       }
-                      className="w-full mt-0.5 px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full mt-0.5 px-2 py-1.5 text-xs bg-slate-800 border border-slate-700 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                     >
                       <option value="">— Не привязана —</option>
                       {currentPlan.zones.map((z) => (
@@ -309,25 +309,25 @@ export default function Sidebar() {
                   </div>
 
                   <div>
-                    <label className="text-[10px] text-slate-500 uppercase tracking-wide">Тип</label>
-                    <p className="text-xs text-slate-700 mt-0.5">
+                    <label className="text-[10px] text-slate-400 uppercase tracking-wide">Тип</label>
+                    <p className="text-xs text-slate-200 mt-0.5">
                       {OBJECT_TYPE_ICONS[selectedObject.type]} {OBJECT_TYPE_LABELS[selectedObject.type]}
                     </p>
                   </div>
 
                   <div>
-                    <label className="text-[10px] text-slate-500 uppercase tracking-wide">ID</label>
-                    <p className="text-[10px] text-slate-400 font-mono mt-0.5 break-all">{selectedObject.id}</p>
+                    <label className="text-[10px] text-slate-400 uppercase tracking-wide">ID</label>
+                    <p className="text-[10px] text-slate-500 font-mono mt-0.5 break-all">{selectedObject.id}</p>
                   </div>
                 </div>
 
                 {/* Attributes */}
-                <div className="border-t border-slate-200 pt-3">
-                  <h4 className="text-xs font-semibold text-slate-700 mb-2">Атрибуты</h4>
+                <div className="border-t border-slate-700 pt-3">
+                  <h4 className="text-xs font-semibold text-slate-200 mb-2">Атрибуты</h4>
                   <div className="space-y-1.5">
                     {Object.entries(selectedObject.attributes).map(([key, value]) => (
                       <div key={key}>
-                        <label className="text-[10px] text-slate-500">{key}</label>
+                        <label className="text-[10px] text-slate-400">{key}</label>
                         <input
                           type="text"
                           value={value}
@@ -340,7 +340,7 @@ export default function Sidebar() {
                               },
                             })
                           }
-                          className="w-full mt-0.5 px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          className="w-full mt-0.5 px-2 py-1.5 text-xs bg-slate-800 border border-slate-700 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                         />
                       </div>
                     ))}
@@ -357,7 +357,7 @@ export default function Sidebar() {
                           });
                         }
                       }}
-                      className="flex items-center gap-1 text-[10px] text-blue-600 hover:text-blue-700 mt-1"
+                      className="flex items-center gap-1 text-[10px] text-blue-400 hover:text-blue-300 mt-1"
                     >
                       <Plus size={10} /> Добавить атрибут
                     </button>
@@ -369,17 +369,17 @@ export default function Sidebar() {
             {selectedZone && (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-slate-800">Зона</h3>
+                  <h3 className="text-sm font-semibold text-white">Зона</h3>
                   <button
                     onClick={deleteSelected}
-                    className="p-1.5 rounded hover:bg-red-50 text-red-500"
+                    className="p-1.5 rounded hover:bg-red-900/30 text-red-400"
                     title="Удалить"
                   >
                     <Trash2 size={14} />
                   </button>
                 </div>
                 <div>
-                  <label className="text-[10px] text-slate-500 uppercase tracking-wide">Название</label>
+                  <label className="text-[10px] text-slate-400 uppercase tracking-wide">Название</label>
                   <input
                     type="text"
                     value={selectedZone.name}
@@ -389,20 +389,20 @@ export default function Sidebar() {
                         payload: { ...selectedZone, name: e.target.value },
                       })
                     }
-                    className="w-full mt-0.5 px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full mt-0.5 px-2 py-1.5 text-xs bg-slate-800 border border-slate-700 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] text-slate-500 uppercase tracking-wide">Тип</label>
-                  <p className="text-xs text-slate-700 mt-0.5">{ZONE_TYPE_LABELS[selectedZone.type]}</p>
+                  <label className="text-[10px] text-slate-400 uppercase tracking-wide">Тип</label>
+                  <p className="text-xs text-slate-200 mt-0.5">{ZONE_TYPE_LABELS[selectedZone.type]}</p>
                 </div>
                 <div>
-                  <label className="text-[10px] text-slate-500 uppercase tracking-wide">ID</label>
-                  <p className="text-[10px] text-slate-400 font-mono mt-0.5 break-all">{selectedZone.id}</p>
+                  <label className="text-[10px] text-slate-400 uppercase tracking-wide">ID</label>
+                  <p className="text-[10px] text-slate-500 font-mono mt-0.5 break-all">{selectedZone.id}</p>
                 </div>
                 <div>
-                  <label className="text-[10px] text-slate-500 uppercase tracking-wide">Объектов в зоне</label>
-                  <p className="text-xs text-slate-700 mt-0.5">
+                  <label className="text-[10px] text-slate-400 uppercase tracking-wide">Объектов в зоне</label>
+                  <p className="text-xs text-slate-200 mt-0.5">
                     {currentPlan.objects.filter((o) => o.zoneId === selectedZone.id).length}
                   </p>
                 </div>
@@ -412,7 +412,7 @@ export default function Sidebar() {
             {!selectedObject && !selectedZone && (
               <div className="text-center py-8">
                 <div className="text-3xl mb-2">👆</div>
-                <p className="text-xs text-slate-500">Выберите объект или зону на плане для редактирования свойств</p>
+                <p className="text-xs text-slate-400">Выберите объект или зону на плане для редактирования свойств</p>
               </div>
             )}
           </div>

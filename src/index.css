@@ -13,6 +13,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #141414;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
