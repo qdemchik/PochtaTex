@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
 import { useAppState, pointInPolygon, getObjectCenter } from '../store';
-import { EquipmentObject, OBJECT_TYPE_ICONS } from '../types';
+import { EquipmentObject } from '../types';
 
 export default function Editor2D() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -12,6 +12,8 @@ export default function Editor2D() {
   const [isPanning, setIsPanning] = useState(false);
   const [panStart, setPanStart] = useState({ x: 0, y: 0 });
   const [canvasSize, setCanvasSize] = useState({ width: 800, height: 600 });
+  const [isDraggingZone, setIsDraggingZone] = useState(false);
+  const [zoneDragStart, setZoneDragStart] = useState<{ x: number; y: number; points: { x: number; y: number }[] } | null>(null);
 
   const scale = zoom; // pixels per meter
 
@@ -114,6 +116,19 @@ export default function Editor2D() {
       ctx.font = 'bold 11px Inter, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(zone.name, labelPos.x, labelPos.y);
+
+      // Zone dimensions (top-left corner)
+      const minX = Math.min(...zone.points.map(p => p.x));
+      const maxX = Math.max(...zone.points.map(p => p.x));
+      const minY = Math.min(...zone.points.map(p => p.y));
+      const maxY = Math.max(...zone.points.map(p => p.y));
+      const width = maxX - minX;
+      const height = maxY - minY;
+      const dimPos = toScreen(minX, minY);
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '9px Inter, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText(`${width.toFixed(1)}×${height.toFixed(1)} м`, dimPos.x + 3, dimPos.y + 10);
     });
 
     // Draw objects
@@ -136,13 +151,6 @@ export default function Editor2D() {
       ctx.strokeStyle = isSelected ? '#ffffff' : obj.color;
       ctx.lineWidth = isSelected ? 2.5 : 1.5;
       ctx.strokeRect(0, 0, w, h);
-
-      // Icon
-      const icon = OBJECT_TYPE_ICONS[obj.type];
-      ctx.font = `${Math.min(w, h) * 0.5}px sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(icon, w / 2, h / 2);
 
       ctx.restore();
 
@@ -210,6 +218,8 @@ export default function Editor2D() {
     const clickedZone = findZoneAt(world.x, world.y);
     if (clickedZone) {
       dispatch({ type: 'SELECT_ZONE', payload: clickedZone.id });
+      setIsDraggingZone(true);
+      setZoneDragStart({ x: world.x, y: world.y, points: [...clickedZone.points] });
       return;
     }
 
@@ -239,11 +249,30 @@ export default function Editor2D() {
         });
       }
     }
+
+    if (isDraggingZone && state.selectedZoneId && zoneDragStart) {
+      const world = toWorld(mx, my);
+      const dx = world.x - zoneDragStart.x;
+      const dy = world.y - zoneDragStart.y;
+      const zone = currentPlan.zones.find((z) => z.id === state.selectedZoneId);
+      if (zone) {
+        const newPoints = zoneDragStart.points.map((p) => ({
+          x: Math.round((p.x + dx) * 10) / 10,
+          y: Math.round((p.y + dy) * 10) / 10,
+        }));
+        dispatch({
+          type: 'UPDATE_ZONE',
+          payload: { ...zone, points: newPoints },
+        });
+      }
+    }
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
     setIsPanning(false);
+    setIsDraggingZone(false);
+    setZoneDragStart(null);
   };
 
   const handleWheel = (e: React.WheelEvent) => {

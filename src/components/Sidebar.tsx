@@ -406,6 +406,83 @@ export default function Sidebar() {
                     {currentPlan.objects.filter((o) => o.zoneId === selectedZone.id).length}
                   </p>
                 </div>
+
+                {/* Zone shape editing */}
+                <div className="border-t border-slate-700 pt-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="text-xs font-semibold text-white">Форма зоны (вершины)</h4>
+                    <button
+                      onClick={() => {
+                        const lastPoint = selectedZone.points[selectedZone.points.length - 1];
+                        dispatch({
+                          type: 'UPDATE_ZONE',
+                          payload: {
+                            ...selectedZone,
+                            points: [...selectedZone.points, { x: lastPoint.x + 0.5, y: lastPoint.y + 0.5 }],
+                          },
+                        });
+                      }}
+                      className="flex items-center gap-1 text-[10px] text-blue-400 hover:text-blue-300"
+                    >
+                      <Plus size={10} /> Добавить точку
+                    </button>
+                  </div>
+                  <div className="space-y-1.5">
+                    {selectedZone.points.map((point, idx) => (
+                      <div key={idx} className="flex items-center gap-1.5">
+                        <span className="text-[10px] text-slate-500 w-4">#{idx + 1}</span>
+                        <input
+                          type="number"
+                          step="0.1"
+                          value={point.x}
+                          onChange={(e) => {
+                            const newPoints = [...selectedZone.points];
+                            newPoints[idx] = { ...newPoints[idx], x: parseFloat(e.target.value) || 0 };
+                            dispatch({
+                              type: 'UPDATE_ZONE',
+                              payload: { ...selectedZone, points: newPoints },
+                            });
+                          }}
+                          className="w-16 px-1.5 py-1 text-[10px] bg-slate-800 border border-slate-700 text-white rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          placeholder="X"
+                        />
+                        <input
+                          type="number"
+                          step="0.1"
+                          value={point.y}
+                          onChange={(e) => {
+                            const newPoints = [...selectedZone.points];
+                            newPoints[idx] = { ...newPoints[idx], y: parseFloat(e.target.value) || 0 };
+                            dispatch({
+                              type: 'UPDATE_ZONE',
+                              payload: { ...selectedZone, points: newPoints },
+                            });
+                          }}
+                          className="w-16 px-1.5 py-1 text-[10px] bg-slate-800 border border-slate-700 text-white rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          placeholder="Y"
+                        />
+                        {selectedZone.points.length > 3 && (
+                          <button
+                            onClick={() => {
+                              const newPoints = selectedZone.points.filter((_, i) => i !== idx);
+                              dispatch({
+                                type: 'UPDATE_ZONE',
+                                payload: { ...selectedZone, points: newPoints },
+                              });
+                            }}
+                            className="p-1 rounded hover:bg-red-900/30 text-red-400"
+                            title="Удалить точку"
+                          >
+                            <Trash2 size={10} />
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-[9px] text-slate-500 mt-2">
+                    Измените координаты вершин для изменения формы и размера зоны
+                  </p>
+                </div>
               </div>
             )}
 

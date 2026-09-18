@@ -75,10 +75,7 @@ export default function TopBar() {
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
           <Layers size={16} className="text-white" />
         </div>
-        <div>
-          <h1 className="text-sm font-bold text-white leading-tight">Почта Тех</h1>
-          <p className="text-[10px] text-slate-300 leading-tight">Планировщик отделений</p>
-        </div>
+        <h1 className="text-sm font-bold text-white">Почта Тех</h1>
       </div>
 
       {/* Tabs */}
@@ -104,11 +101,6 @@ export default function TopBar() {
 
       {/* Spacer */}
       <div className="flex-1" />
-
-      {/* Plan name */}
-      <div className="text-xs text-slate-200 max-w-48 truncate">
-        <span className="font-medium text-white">{currentPlan.name}</span>
-      </div>
 
       {/* Actions */}
       <div className="flex items-center gap-1.5">

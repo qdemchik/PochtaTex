@@ -33,8 +33,7 @@ export default function InventoryPanel() {
   return (
     <div className="flex-1 overflow-y-auto p-6 bg-[#141414]">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-xl font-bold text-white mb-1">Инвентаризация оборудования</h2>
-        <p className="text-sm text-slate-400 mb-6">{currentPlan.name}</p>
+        <h2 className="text-xl font-bold text-white mb-6">Инвентаризация оборудования</h2>
 
         {/* Summary cards */}
         <div className="grid grid-cols-4 gap-4 mb-6">
