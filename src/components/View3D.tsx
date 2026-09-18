@@ -15,7 +15,7 @@ export default function View3D() {
 
     // Scene setup
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xf0f4f8);
+    scene.background = new THREE.Color(0x1a1a1a);
 
     const width = container.clientWidth;
     const height = container.clientHeight;
@@ -45,7 +45,7 @@ export default function View3D() {
 
     // Floor
     const floorGeom = new THREE.PlaneGeometry(room.width, room.height);
-    const floorMat = new THREE.MeshStandardMaterial({ color: 0xfafafa, roughness: 0.8 });
+    const floorMat = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: 0.8 });
     const floor = new THREE.Mesh(floorGeom, floorMat);
     floor.rotation.x = -Math.PI / 2;
     floor.position.set(room.width / 2, 0, room.height / 2);
@@ -55,7 +55,7 @@ export default function View3D() {
     // Walls
     const wallHeight = 3;
     const wallThickness = 0.15;
-    const wallMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.5 });
+    const wallMat = new THREE.MeshStandardMaterial({ color: 0x3a3a3a, roughness: 0.5 });
 
     // Front wall
     const frontWall = new THREE.Mesh(
@@ -155,7 +155,7 @@ export default function View3D() {
     });
 
     // Grid helper
-    const gridHelper = new THREE.GridHelper(Math.max(room.width, room.height) + 4, 20, 0xcbd5e1, 0xe2e8f0);
+    const gridHelper = new THREE.GridHelper(Math.max(room.width, room.height) + 4, 20, 0x444444, 0x333333);
     gridHelper.position.set(room.width / 2, -0.01, room.height / 2);
     scene.add(gridHelper);
 
@@ -195,13 +195,13 @@ export default function View3D() {
   }, [currentPlan]);
 
   return (
-    <div className="flex-1 flex flex-col bg-slate-50">
-      <div className="px-6 py-3 border-b border-slate-200 bg-white flex items-center justify-between">
+    <div className="flex-1 flex flex-col bg-[#141414]">
+      <div className="px-6 py-3 border-b border-slate-800 bg-[#1e1e1e] flex items-center justify-between">
         <div>
-          <h2 className="text-sm font-semibold text-slate-800">3D-представление</h2>
-          <p className="text-xs text-slate-500">Упрощённая визуализация плана в перспективе</p>
+          <h2 className="text-sm font-semibold text-white">3D-представление</h2>
+          <p className="text-xs text-slate-400">Упрощённая визуализация плана в перспективе</p>
         </div>
-        <div className="flex items-center gap-3 text-xs text-slate-500">
+        <div className="flex items-center gap-3 text-xs text-slate-400">
           <span className="flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-blue-500" /> Рабочие места
           </span>

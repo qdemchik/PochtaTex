@@ -52,11 +52,11 @@ export default function Editor2D() {
     canvas.height = canvasSize.height;
 
     // Clear
-    ctx.fillStyle = '#F8FAFC';
+    ctx.fillStyle = '#1a1a1a';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Draw grid
-    ctx.strokeStyle = '#E2E8F0';
+    ctx.strokeStyle = '#2a2a2a';
     ctx.lineWidth = 0.5;
     const gridSize = scale; // 1 meter grid
     const startX = panOffset.x + 40;
@@ -83,9 +83,9 @@ export default function Editor2D() {
     const tl = toScreen(0, 0);
     const br = toScreen(room.width, room.height);
 
-    ctx.fillStyle = '#FFFFFF';
+    ctx.fillStyle = '#252525';
     ctx.fillRect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
-    ctx.strokeStyle = '#1E293B';
+    ctx.strokeStyle = '#64748B';
     ctx.lineWidth = 3;
     ctx.strokeRect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
 
@@ -98,9 +98,9 @@ export default function Editor2D() {
         else ctx.lineTo(sp.x, sp.y);
       });
       ctx.closePath();
-      ctx.fillStyle = zone.color + '20';
+      ctx.fillStyle = zone.color + '30';
       ctx.fill();
-      ctx.strokeStyle = zone.id === selectedZoneId ? '#000000' : zone.color;
+      ctx.strokeStyle = zone.id === selectedZoneId ? '#ffffff' : zone.color;
       ctx.lineWidth = zone.id === selectedZoneId ? 2.5 : 1.5;
       ctx.setLineDash(zone.id === selectedZoneId ? [] : [5, 3]);
       ctx.stroke();
@@ -133,7 +133,7 @@ export default function Editor2D() {
       // Object body
       ctx.fillStyle = obj.color + (isSelected ? 'DD' : '99');
       ctx.fillRect(0, 0, w, h);
-      ctx.strokeStyle = isSelected ? '#000000' : obj.color;
+      ctx.strokeStyle = isSelected ? '#ffffff' : obj.color;
       ctx.lineWidth = isSelected ? 2.5 : 1.5;
       ctx.strokeRect(0, 0, w, h);
 
@@ -148,7 +148,7 @@ export default function Editor2D() {
 
       // Object label
       if (isSelected || scale > 35) {
-        ctx.fillStyle = '#1E293B';
+        ctx.fillStyle = '#e2e8f0';
         ctx.font = '9px Inter, sans-serif';
         ctx.textAlign = 'center';
         const labelY = pos.y + h + 12;
@@ -157,7 +157,7 @@ export default function Editor2D() {
     });
 
     // Dimension labels
-    ctx.fillStyle = '#64748B';
+    ctx.fillStyle = '#94a3b8';
     ctx.font = '10px Inter, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(`${room.width} м`, (tl.x + br.x) / 2, br.y + 20);
@@ -168,13 +168,13 @@ export default function Editor2D() {
     ctx.restore();
 
     // Scale indicator
-    ctx.fillStyle = '#94A3B8';
+    ctx.fillStyle = '#cbd5e1';
     ctx.font = '10px Inter, sans-serif';
     ctx.textAlign = 'left';
     const scaleBarX = canvas.width - 120;
     const scaleBarY = canvas.height - 20;
     ctx.fillText(`Масштаб: 1м = ${scale}px`, scaleBarX, scaleBarY);
-    ctx.strokeStyle = '#94A3B8';
+    ctx.strokeStyle = '#cbd5e1';
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(scaleBarX, scaleBarY + 5);
@@ -274,7 +274,7 @@ export default function Editor2D() {
   }
 
   return (
-    <div ref={containerRef} className="w-full h-full relative bg-slate-50 overflow-hidden">
+    <div ref={containerRef} className="w-full h-full relative bg-[#1a1a1a] overflow-hidden">
       <canvas
         ref={canvasRef}
         className="w-full h-full cursor-crosshair"
@@ -284,7 +284,7 @@ export default function Editor2D() {
         onMouseLeave={handleMouseUp}
         onWheel={handleWheel}
       />
-      <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur rounded-lg px-3 py-1.5 text-xs text-slate-600 shadow-sm border border-slate-200">
+      <div className="absolute bottom-3 left-3 bg-[#2a2a2a]/90 backdrop-blur rounded-lg px-3 py-1.5 text-xs text-slate-300 shadow-sm border border-slate-700">
         🖱️ Перетаскивание — перемещение объекта | Alt+ЛКМ — панорама | Колесо — масштаб
       </div>
     </div>

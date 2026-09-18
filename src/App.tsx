@@ -11,7 +11,7 @@ function AppContent() {
   const { state } = useAppState();
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-slate-100 overflow-hidden">
+    <div className="h-screen w-screen flex flex-col bg-[#141414] overflow-hidden">
       <TopBar />
       <div className="flex-1 flex overflow-hidden">
         {state.activeTab === 'editor' && (
